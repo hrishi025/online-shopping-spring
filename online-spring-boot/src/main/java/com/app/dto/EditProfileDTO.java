@@ -1,8 +1,13 @@
 package com.app.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class EditProfileDTO {
+	@JsonProperty("name")
 	private String user_name;
+	@JsonProperty("password")
 	private String user_password;
+	@JsonProperty("phone")
 	private String user_phone;
 	
 	public EditProfileDTO() {

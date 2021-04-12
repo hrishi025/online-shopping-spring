@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "myorder")
 public class Myorder {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "myorder_id")
     private Integer myorderId;
 
@@ -81,5 +82,13 @@ public class Myorder {
     public void setTotalPrice(Float totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+	@Override
+	public String toString() {
+		return "Myorder [myorderId=" + myorderId + ", orderDate=" + orderDate + ", status=" + status + ", totalPrice="
+				+ totalPrice + ", user=" + user + ", address=" + address + "]";
+	}
+
+
 
 }

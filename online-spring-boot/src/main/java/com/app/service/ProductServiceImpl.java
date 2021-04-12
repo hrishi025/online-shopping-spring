@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.ProductsRepository;
+import com.app.dao.UsersRepository;
 import com.app.pojos.Products;
+import com.app.pojos.Users;
 
 @Service
 @Transactional
@@ -21,18 +23,25 @@ public class ProductServiceImpl implements IProductService {
 	@Autowired
 	ProductsRepository repo;
 
+	//for getting seller products
+	@Autowired
+	UsersRepository userRepo;
+	
 	@Override
 	public List<Products> productListAll() {
 		return repo.findAll();
 	}
 
-//	@Override
-//	public List<Products> productListSeller(int user_id) {
-//		return repo.productListSeller(user_id);
-//	}
+	@Override
+	public List<Products> productListSeller(int user_id) {
+		Users u = userRepo.findById(user_id).get();
+		return repo.findAllByUser(u);
+	}
 
 	@Override
 	public Products addProduct(Products product) {
+		System.out.println(product.getCategory().getCatId());
+		System.out.println(product.getCompany().getCompId());
 		return repo.save(product);
 	}
 
@@ -50,14 +59,13 @@ public class ProductServiceImpl implements IProductService {
 		return "no product found";
 	}
 
-//	@Override
-//	public Products updateProductQuantity(int prod_id, float prod_qty) {
-//		return repo.updateProductQuantity(prod_id,prod_qty);
-//	}
-//
-//	@Override
-//	public Products updateProductPrice(int prod_id, float prod_price) {
-//		return repo.updateProductQuantity(prod_id,prod_price);
-//	}
+	@Override
+	public Products updateProductQuantity(int prod_id, int prod_qty, String prod_title, Float prod_price) {
+		Products p = repo.findById(prod_id).get();
+		p.setProdQty(prod_qty);
+		p.setProdPrice(prod_price);
+		p.setProdTitle(prod_title);
+		return repo.save(p);
+	}
 
 }

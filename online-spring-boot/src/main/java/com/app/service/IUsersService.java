@@ -9,5 +9,5 @@ public interface IUsersService {
 	Users userSignup(Users u);
 	Users getProfile(int id);
 	Users userUpdate(int id, EditProfileDTO u);
-//	String applySeller(int id);
+	String applySeller(int id);
 }

@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "orderdetails")
 public class Orderdetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderdetails_id")
     private Integer orderdetailsId;
 
@@ -86,4 +87,11 @@ public class Orderdetails {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+	@Override
+	public String toString() {
+		return "Orderdetails [orderdetailsId=" + orderdetailsId + ", price=" + price + ", quantity=" + quantity
+				+ ", rating=" + rating + ", comment=" + comment + ", myorder=" + myorder + ", product=" + product + "]";
+	}
+    
 }

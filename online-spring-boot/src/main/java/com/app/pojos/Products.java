@@ -2,32 +2,42 @@ package com.app.pojos;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "product")
 public class Products {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prod_id")
+    @JsonProperty("prod_id")
     private Integer prodId;
 
     @Column(name = "prod_title")
+    @JsonProperty("prod_title")
     private String prodTitle;
 
     @Column(name = "prod_description")
+    @JsonProperty("prod_description")
     private String prodDescription;
 
     @Column(name = "prod_price")
+    @JsonProperty("prod_price")
     private Float prodPrice;
 
     @Column(name = "prod_qty")
+    @JsonProperty("prod_qty")
     private Integer prodQty;
-
-    @Column(name = "seller_id")
-    private Integer sellerId;
 
     @Column(name = "photo")
     private String photo;
 
+    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(optional = false)
+    private Users user;
+    
     @JoinColumn(name = "cat_id", nullable = false)
     @ManyToOne(optional = false)
     private Category category;
@@ -35,13 +45,6 @@ public class Products {
     @JoinColumn(name = "comp_id", nullable = false)
     @ManyToOne(optional = false)
     private Company company;
-
-
-
-
-
-
-
 
 
 
@@ -105,19 +108,26 @@ public class Products {
         this.prodQty = prodQty;
     }
 
-    public Integer getSellerId() {
-        return this.sellerId;
-    }
+    public Users getUser() {
+		return user;
+	}
 
-    public void setSellerId(Integer sellerId) {
-        this.sellerId = sellerId;
-    }
+	public void setUser(Users user) {
+		this.user = user;
+	}
 
-    public String getPhoto() {
+	public String getPhoto() {
         return this.photo;
     }
 
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+	@Override
+	public String toString() {
+		return "Products [prodId=" + prodId + ", prodTitle=" + prodTitle + ", prodDescription=" + prodDescription
+				+ ", prodPrice=" + prodPrice + ", prodQty=" + prodQty + ", photo=" + photo + ", seller=" + user + "]";
+	}
+
 }

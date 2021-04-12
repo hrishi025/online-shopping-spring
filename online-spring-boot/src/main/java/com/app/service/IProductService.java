@@ -8,7 +8,7 @@ public interface IProductService {
 
 	List<Products> productListAll();
 
-//	List<Products> productListSeller(int user_id);
+	List<Products> productListSeller(int user_id);
 
 	Products addProduct(Products product);
 
@@ -16,8 +16,6 @@ public interface IProductService {
 
 	String deleteProduct(int prod_id);
 
-//	Products updateProductQuantity(int prod_id, float prod_qty);
-//
-//	Products updateProductPrice(int prod_id, float prod_price);
+	Products updateProductQuantity(int prod_id, int prod_qty, String prod_title, Float prod_price );
 	
 }

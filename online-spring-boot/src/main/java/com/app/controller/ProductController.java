@@ -35,15 +35,15 @@ public class ProductController {
 		return new ResponseDTO<>(HttpStatus.OK, "products found", productService.productListAll());
 	}
 	
-//	@GetMapping("/seller/{user_id}")
-//	public ResponseDTO<?> getProductListSeller(@PathVariable int user_id){
-//		System.out.println("in get seller products list product controller: " + user_id);
-//		return new ResponseDTO<>(HttpStatus.OK, "products found", productService.productListSeller(user_id));
-//	}
+	@GetMapping("/seller/{user_id}")
+	public ResponseDTO<?> getProductListSeller(@PathVariable int user_id){
+		System.out.println("in get seller products list product controller: " + user_id);
+		return new ResponseDTO<>(HttpStatus.OK, "products found", productService.productListSeller(user_id));
+	}
 	
 	@PostMapping("/add")
 	public ResponseDTO<?> addProduct(@RequestBody Products product){
-		System.out.println("in get product add product controller: " + product);
+		System.out.println("in get product add product controller: " + product.getCategory());
 		return new ResponseDTO<>(HttpStatus.OK, "product added", productService.addProduct(product));
 	}
 	
@@ -58,17 +58,12 @@ public class ProductController {
 		System.out.println("in get product delete product controller: " + prod_id);
 		return new ResponseDTO<>(HttpStatus.OK, "product deleted", productService.deleteProduct(prod_id));
 	}
+
+	@PostMapping("/update/{prod_id}")
+	public ResponseDTO<?> updateProductQuantity(@PathVariable int prod_id, @RequestBody Products product){
+		System.out.println("in get product qty update product controller: " + product.getProdTitle() + product.getProdQty()+ product.getProdTitle()+ product.getProdPrice());
+		return new ResponseDTO<>(HttpStatus.OK, "product updated", productService.updateProductQuantity(prod_id, product.getProdQty(), product.getProdTitle(), product.getProdPrice()));
+	}
 	
-//	//TODO:UPDATE QTY & PRICE NOT WORKING
-//	@PatchMapping("/quantity/update/{prod_id}")
-//	public ResponseDTO<?> updateProductQuantity(@PathVariable int prod_id, @RequestBody int prod_qty){
-//		System.out.println("in get product qty update product controller: " + prod_id + prod_qty);
-//		return new ResponseDTO<>(HttpStatus.OK, "product quantity updated", productService.updateProductQuantity(prod_id, prod_qty));
-//	}
-//	@PatchMapping("/price/update/{prod_id}")
-//	public ResponseDTO<?> updateProductPrice(@PathVariable int prod_id, @RequestBody int prod_price ){
-//		System.out.println("in get product price update product controller: " + prod_id + " "+ prod_price);
-//		return new ResponseDTO<>(HttpStatus.OK, "product price updated", productService.updateProductPrice(prod_id, prod_price));
-//	}
 
 }

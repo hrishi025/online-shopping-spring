@@ -1,6 +1,10 @@
 package com.app.pojos;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 @Entity
@@ -9,6 +13,7 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cat_id")
+	@JsonProperty("cat_id")
 	private Integer catId;
 
 	@Column(name = "cat_title")
@@ -17,6 +22,7 @@ public class Category {
 	@Column(name = "cat_description")
 	private String catDescription;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Products> products;
 
@@ -51,4 +57,10 @@ public class Category {
 	public void setCatDescription(String catDescription) {
 		this.catDescription = catDescription;
 	}
+
+	@Override
+	public String toString() {
+		return "Category [catId=" + catId + ", catTitle=" + catTitle + ", catDescription=" + catDescription + "]";
+	}
+
 }

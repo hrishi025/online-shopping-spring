@@ -2,6 +2,8 @@ package com.app.pojos;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "cart")
 public class Cart {
@@ -9,9 +11,11 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
+    @JsonProperty("cart_id")
     private Integer cartId;
 
     @Column(name = "cart_quantity")
+    @JsonProperty("cart_quantity")
     private Integer cartQuantity;
 
     // userId column
@@ -62,4 +66,11 @@ public class Cart {
     public void setCartQuantity(Integer cartQuantity) {
         this.cartQuantity = cartQuantity;
     }
+
+	@Override
+	public String toString() {
+		return "Cart [cartId=" + cartId + ", cartQuantity=" + cartQuantity + ", user=" + user + ", product=" + product
+				+ "]";
+	}
+    
 }

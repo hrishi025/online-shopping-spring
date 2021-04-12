@@ -12,6 +12,7 @@ import java.util.List;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("user_id")
     @Column(name = "user_id")
     private Integer userId;
 
@@ -56,6 +57,10 @@ public class Users {
     @JsonIgnore		// to ignore this property during signin causing lazy init
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Myorder> myorders;
+    
+    @JsonIgnore		// to ignore this property during signin causing lazy init
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Products> products;
 
 
 
@@ -67,10 +72,15 @@ public class Users {
 
 
 
+    public List<Products> getProducts() {
+		return products;
+	}
 
+	public void setProducts(List<Products> products) {
+		this.products = products;
+	}
 
-
-    public List<Myorder> getMyorders() {
+	public List<Myorder> getMyorders() {
         return myorders;
     }
 
@@ -140,5 +150,12 @@ public class Users {
     public void setUserRole(Role userRole) {
         this.userRole = userRole;
     }
+
+	@Override
+	public String toString() {
+		return "Users [userId=" + userId + ", userName=" + userName + ", userPhone=" + userPhone + ", userEmail="
+				+ userEmail + ", userStatus=" + userStatus + ", userRole=" + userRole
+				+ "]";
+	}
     
 }

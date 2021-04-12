@@ -44,19 +44,19 @@ public class UsersController {
 	@GetMapping("/profile/{id}")
 	public ResponseDTO<?> getProfile(@PathVariable int id) {
 		System.out.println("in user get profile controller: " + id);
-		return new ResponseDTO<>(HttpStatus.OK, "signup success", usersService.getProfile(id));
+		return new ResponseDTO<>(HttpStatus.OK, "profile fetch success", usersService.getProfile(id));
 	}
 
 	@PostMapping("/update/{id}")
 	public ResponseDTO<?> userUpdate(@PathVariable int id,@RequestBody EditProfileDTO u) {
 		System.out.println("in user update controller: " + u + " " + id);
-		return new ResponseDTO<>(HttpStatus.OK, "signup success", usersService.userUpdate(id,u));
+		return new ResponseDTO<>(HttpStatus.OK, "profile update success", usersService.userUpdate(id,u));
 	}
 
-	/*@PatchMapping("/seller/apply/{id}")
+	@PatchMapping("/seller/apply/{id}")
 	public ResponseDTO<?> applyForSeller(@PathVariable int id) {
 		System.out.println("in apply seller user controller: " + id);
-		return new ResponseDTO<>(HttpStatus.OK, "signup success", usersService.applySeller(id));
-	}*/
+		return new ResponseDTO<>(HttpStatus.OK, "seller apply success", usersService.applySeller(id));
+	}
 
 }
