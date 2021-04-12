@@ -5,7 +5,7 @@ import com.app.dto.SigninDTO;
 import com.app.pojos.Users;
 
 public interface IUsersService {
-	Users userSignin(SigninDTO u);
+	Users userSignin(String u);
 	Users userSignup(Users u);
 	Users getProfile(int id);
 	Users userUpdate(int id, EditProfileDTO u);

@@ -2,6 +2,7 @@ package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,14 +28,16 @@ public class CartController {
 	
 	@PostMapping("/addtocart")
 	public ResponseDTO<?> addToCart(@RequestBody Cart cart ){
-		System.out.println("in add to cart :" + cart);
-		return new ResponseDTO<>(HttpStatus.OK, "added to cart", cartService.addToCart(cart));
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("in add to cart :" + cart + " " + username);
+		return new ResponseDTO<>(HttpStatus.OK, "added to cart", cartService.addToCart(cart, username));
 	}
 	
-	@GetMapping("/{user_id}")
-	public ResponseDTO<?> getCartItems( @PathVariable int user_id ){
-		System.out.println("in get cart items: " + user_id);
-		return new ResponseDTO<>(HttpStatus.OK, "cart found found", cartService.getCartItems(user_id));
+	@GetMapping("/items")
+	public ResponseDTO<?> getCartItems(){
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("in get cart items: ");
+		return new ResponseDTO<>(HttpStatus.OK, "cart found found", cartService.getCartItems(username));
 	}
 
 	@DeleteMapping("/{cart_id}")

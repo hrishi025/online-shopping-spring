@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.EditProfileDTO;
 import com.app.dto.ResponseDTO;
-import com.app.dto.SigninDTO;
 import com.app.pojos.Users;
 import com.app.service.IUsersService;
 
@@ -29,10 +28,9 @@ public class UsersController {
 	@Autowired
 	IUsersService usersService;
 
-	@PostMapping("/signin")
-	public ResponseDTO<?> userSignin(@RequestBody SigninDTO u) {
+	public Users userSignin(String u) {
 		System.out.println("in user signin controller: " + u);
-		return new ResponseDTO<>(HttpStatus.OK, "sign in success", usersService.userSignin(u));
+		return usersService.userSignin(u);
 	}
 
 	@PostMapping("/signup")
@@ -58,5 +56,5 @@ public class UsersController {
 		System.out.println("in apply seller user controller: " + id);
 		return new ResponseDTO<>(HttpStatus.OK, "seller apply success", usersService.applySeller(id));
 	}
-
+	
 }

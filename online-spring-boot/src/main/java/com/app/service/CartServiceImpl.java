@@ -30,29 +30,29 @@ public class CartServiceImpl implements ICartService {
 
 	@Autowired
 	UsersRepository userRepo;
-	
+
 	@Autowired
 	ProductsRepository productRepo;
-	
+
 	@Autowired
 	MyorderRepository myorderRepo;
-	
+
 	@Autowired
 	OrderDetailsRepository orderdetailsRepo;
-	
+
 	@Autowired
 	AddressRepository addressRepo;
-	
-	
 
 	@Override
-	public Cart addToCart(Cart cart) {
+	public Cart addToCart(Cart cart, String username) {
+		Users u = userRepo.findByUserName(username);
+		cart.setUser(u);
 		return cartRepo.save(cart);
 	}
 
 	@Override
-	public List<Cart> getCartItems(int user_id) {
-		Users u = userRepo.findById(user_id).get();
+	public List<Cart> getCartItems(String username) {
+		Users u = userRepo.findByUserName(username);
 		List<Cart> c = cartRepo.findByUser(u);
 		System.out.println(c);
 		return c;
@@ -77,51 +77,47 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public Cart cartCheckout(int user_id, Address a) {
-		List<Cart> carts = getCartItems(user_id);
-
-		
+		List<Cart> carts = getCartItems("");
 
 		float total = 0;
 		for (Cart cart : carts) {
 			total = 0;
 
-			// product details 
+			// product details
 			Products p = cart.getProduct();
 			// user details
 			Users u = cart.getUser();
-			
+
 			a.setUser(u);
 			a = addressRepo.save(a);
-			
-			
-			//STEP 1: CHECK FOR STOCK AVALIABLITY
-			// if the cart quantity is less than or equal to available product stock then only checkout 
+
+			// STEP 1: CHECK FOR STOCK AVALIABLITY
+			// if the cart quantity is less than or equal to available product stock then
+			// only checkout
 			if (cart.getCartQuantity() <= p.getProdQty()) {
-				
+
 				// System.out.println(total +"+" + cart.getCartQuantity()
 				// +"*"+cart.getProduct().getProdPrice() );
 
-
-				//STEP 2: CALCUALTE THE TOTAL CART PRICE & FETCH USER DETAILS
-				//calculate the total price of cart
+				// STEP 2: CALCUALTE THE TOTAL CART PRICE & FETCH USER DETAILS
+				// calculate the total price of cart
 				total = total + (cart.getCartQuantity() * p.getProdPrice());
 				System.out.println("cart total: " + total);
 
-				
-				//STEP 3: INSERT RECORD INTO MYORDER
+				// STEP 3: INSERT RECORD INTO MYORDER
 				Myorder m = new Myorder();
 				m.setOrderDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 				m.setTotalPrice(total);
 				m.setUser(u);
 				m.setAddress(a);
-				
+
 				System.out.println(m.toString());
 
 				myorderRepo.save(m);
 
-
-				//STEP 4: INSERT RECORD IN ORDERDETAILS
-				// then get the myorderid and insert all details of that myorder into orderdetails table
+				// STEP 4: INSERT RECORD IN ORDERDETAILS
+				// then get the myorderid and insert all details of that myorder into
+				// orderdetails table
 				Orderdetails od = new Orderdetails();
 				od.setMyorder(m);
 				od.setPrice(p.getProdPrice());
@@ -129,14 +125,13 @@ public class CartServiceImpl implements ICartService {
 				od.setQuantity(cart.getCartQuantity());
 
 				System.out.println(od);
-				
+
 				orderdetailsRepo.save(od);
 
-				
 				// STEP 5: REDUCE THE PRODUCT STOCK FROM PRODUCT TABLE
-				p.setProdQty( p.getProdQty() - cart.getCartQuantity() );
+				p.setProdQty(p.getProdQty() - cart.getCartQuantity());
 				productRepo.save(p);
-				
+
 				// STEP 6: EMPTY THE CART
 				cartRepo.deleteById(cart.getCartId());
 			}

@@ -2,7 +2,6 @@ package com.app.service;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +19,9 @@ public class UsersServiceImpl implements IUsersService {
 	UsersRepository repo;
 
 	@Override
-	public Users userSignin(SigninDTO u) {
+	public Users userSignin(String u) {
 //		return repo.authenticate(u.getUser_email(), u.getUser_password());
-		return repo.findByUserEmailAndUserPassword(u.getUser_email(), u.getUser_password());
+		return repo.findByUserEmail(u);
 	}
 
 	@Override
@@ -63,4 +62,5 @@ public class UsersServiceImpl implements IUsersService {
 		return "apply seller request success";
 	}
 
+	
 }
