@@ -41,6 +41,7 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public Products addProduct(Products product) {
+		product.setUser(userRepo.findByUserName(product.getUser().getUserName()));
 		System.out.println(product.getCategory().getCatId());
 		System.out.println(product.getCompany().getCompId());
 		return repo.save(product);
