@@ -1,4 +1,4 @@
-package com.app.jwttoken;
+package com.app.jwttoken.service;
 
 import java.util.ArrayList;
 

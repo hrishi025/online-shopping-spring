@@ -2,11 +2,13 @@ package com.app.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.AddressRepository;
@@ -76,8 +78,11 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public Cart cartCheckout(int user_id, Address a) {
-		List<Cart> carts = getCartItems("");
+	public List<Cart> cartCheckout(Address a) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		List<Cart> carts = getCartItems(username);
+		List<Cart> addedCarts = new ArrayList<Cart>();
 
 		float total = 0;
 		for (Cart cart : carts) {
@@ -88,8 +93,7 @@ public class CartServiceImpl implements ICartService {
 			// user details
 			Users u = cart.getUser();
 
-			a.setUser(u);
-			a = addressRepo.save(a);
+			a = addressRepo.findById(a.getAddId()).get();
 
 			// STEP 1: CHECK FOR STOCK AVALIABLITY
 			// if the cart quantity is less than or equal to available product stock then
@@ -134,11 +138,13 @@ public class CartServiceImpl implements ICartService {
 
 				// STEP 6: EMPTY THE CART
 				cartRepo.deleteById(cart.getCartId());
+				
+				addedCarts.add(cart);
 			}
 
 		}
 
-		return null;
+		return addedCarts;
 	}
 
 }

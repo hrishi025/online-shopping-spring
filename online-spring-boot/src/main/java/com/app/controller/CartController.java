@@ -3,7 +3,6 @@ package com.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,17 +44,17 @@ public class CartController {
 		System.out.println("in delete cart: " + cart_id);
 		return new ResponseDTO<>(HttpStatus.OK, "cart deleted", cartService.deleteCart(cart_id));
 	}
-	
+
 	@PutMapping("/")
 	public ResponseDTO<?> updateCart( @RequestBody Cart cart ){
 		System.out.println("in update cart: " + cart.getCartId()+ cart.getCartQuantity());
 		return new ResponseDTO<>(HttpStatus.OK, "cart deleted", cartService.updateCart(cart));
 	}
-	
-	@PostMapping("/checkout/{user_id}")
-	public ResponseDTO<?> cartCheckout( @PathVariable int user_id, @RequestBody Address a ){
-		System.out.println("in cart checkout: " + user_id + " " + a);
-		return new ResponseDTO<>(HttpStatus.OK, "cart checkout success", cartService.cartCheckout(user_id, a));
+
+	@PostMapping("/checkout")
+	public ResponseDTO<?> cartCheckout(@RequestBody Address a){
+		System.out.println("in cart checkout: " + a.getAddId());
+		return new ResponseDTO<>(HttpStatus.OK, "cart checkout success", cartService.cartCheckout(a));
 	}
 	
 }

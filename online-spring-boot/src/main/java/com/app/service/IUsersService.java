@@ -1,7 +1,6 @@
 package com.app.service;
 
 import com.app.dto.EditProfileDTO;
-import com.app.dto.SigninDTO;
 import com.app.pojos.Users;
 
 public interface IUsersService {
@@ -10,4 +9,5 @@ public interface IUsersService {
 	Users getProfile(int id);
 	Users userUpdate(int id, EditProfileDTO u);
 	String applySeller(int id);
+	Users getUser();
 }

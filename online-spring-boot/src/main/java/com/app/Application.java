@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,8 +18,8 @@ import com.app.controller.UsersController;
 import com.app.dto.ResponseDTO;
 import com.app.jwttoken.AuthenticateRequest;
 import com.app.jwttoken.AuthenticationResponse;
-import com.app.jwttoken.JwtUtil;
-import com.app.jwttoken.MyUserDetailsService;
+import com.app.jwttoken.service.MyUserDetailsService;
+import com.app.jwttoken.util.JwtUtil;
 
 @SpringBootApplication
 public class Application {

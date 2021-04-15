@@ -1,4 +1,4 @@
-package com.app.jwttoken;
+package com.app.jwttoken.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.app.jwttoken.filter.JwtRequestFilter;
+import com.app.jwttoken.service.MyUserDetailsService;
 
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {

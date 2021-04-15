@@ -1,4 +1,4 @@
-package com.app.jwttoken;
+package com.app.jwttoken.util;
 
 import java.util.Date;
 import java.util.HashMap;

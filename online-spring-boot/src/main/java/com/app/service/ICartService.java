@@ -1,9 +1,9 @@
 package com.app.service;
 
+import java.util.List;
+
 import com.app.pojos.Address;
 import com.app.pojos.Cart;
-
-import java.util.List;
 
 public interface ICartService {
 
@@ -15,6 +15,6 @@ public interface ICartService {
 
 	Cart updateCart(Cart cart);
 
-	Cart cartCheckout(int user_id, Address address);
+	List<Cart> cartCheckout(Address address);
 
 }

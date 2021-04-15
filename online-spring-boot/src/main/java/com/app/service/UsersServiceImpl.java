@@ -3,11 +3,11 @@ package com.app.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.UsersRepository;
 import com.app.dto.EditProfileDTO;
-import com.app.dto.SigninDTO;
 import com.app.pojos.Role;
 import com.app.pojos.Users;
 
@@ -61,6 +61,10 @@ public class UsersServiceImpl implements IUsersService {
 		repo.save(u);
 		return "apply seller request success";
 	}
-
+	
+	public Users getUser() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		return repo.findByUserName(username);
+	}
 	
 }
