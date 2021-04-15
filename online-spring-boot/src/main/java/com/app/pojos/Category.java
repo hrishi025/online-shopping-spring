@@ -24,9 +24,11 @@ public class Category {
 	private Integer catId;
 
 	@Column(name = "cat_title")
+	@JsonProperty("cat_title")
 	private String catTitle;
 
 	@Column(name = "cat_description")
+	@JsonProperty("cat_description")
 	private String catDescription;
 
 	@JsonIgnore

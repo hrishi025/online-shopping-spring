@@ -24,9 +24,11 @@ public class Company {
     private Integer compId;
 
     @Column(name = "comp_title")
+    @JsonProperty("comp_title")
     private String compTitle;
 
     @Column(name = "comp_description")
+    @JsonProperty("comp_description")
     private String compDescription;
 
     @JsonIgnore
