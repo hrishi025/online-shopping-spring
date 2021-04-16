@@ -37,6 +37,15 @@ const ProductDetailsScreen = (props) => {
 
 	const dispatch = useDispatch()
 
+	const [product,setProduct] = useState('')
+
+	useEffect(()=>{
+		if(allProductStore.response && allProductStore.response.data){
+			setProduct(allProductStore.response.data)
+			console.log(product);
+		}
+	}, [allProductStore.response]);
+
 	useEffect(async () => {
 		console.log('in use effect');
 		await dispatch(getProductDetails(params.id));
@@ -46,7 +55,7 @@ const ProductDetailsScreen = (props) => {
 
 	const onAddToCart = (p) => {
 		console.log(p)
-		dispatch(addToCart(p.prod_id, '1'))
+		dispatch(addToCart(product.prod_id, '1'))
 	}
 
 	//to check if reviews are avaliable or not 
@@ -56,12 +65,8 @@ const ProductDetailsScreen = (props) => {
 
 		<div>
 			{
-				allProductStore &&
-				allProductStore.response &&
-				allProductStore.response.data &&
-				allProductStore.response.data.length > 0 &&
-				allProductStore.response.data.map((p) => {
-					return (
+				product &&
+				product != '' &&
 						<main className="page product-page">
 							<section className="clean-block clean-product dark">
 								<div className="container">
@@ -79,7 +84,7 @@ const ProductDetailsScreen = (props) => {
 															<div className="zoomed-image">
 																<div className="sidebar">
 																	<img className="img-fluid d-block small-preview"
-																		src={p.photo} />
+																		src={product.photo} />
 																</div>
 															</div>
 														</div>
@@ -87,7 +92,7 @@ const ProductDetailsScreen = (props) => {
 												</div>
 												<div className="col-md-6">
 													<div className="info">
-														<h3>{p.prod_title}</h3>
+														<h3>{product.prod_title}</h3>
 														{
 															getProductRatingStore &&
 															getProductRatingStore.response &&
@@ -112,7 +117,7 @@ const ProductDetailsScreen = (props) => {
 														}
 														<hr />
 														<div className="price">
-															<h2>₹ {p.prod_price}</h2>
+															<h2>₹ {product.prod_price}</h2>
 														</div>
 														<button className="btn btn-primary" type="button" onClick={onAddToCart}>
 															<i className="icon-basket"></i>
@@ -121,7 +126,7 @@ const ProductDetailsScreen = (props) => {
 														<hr />
 
 														<div className="summary">
-															<p>{p.prod_description}</p>
+															<p>{product.prod_description}</p>
 														</div>
 													</div>
 												</div>
@@ -175,9 +180,6 @@ const ProductDetailsScreen = (props) => {
 								</div>
 							</section>
 						</main>
-					)
-				}
-				)
 			}
 		</div >
 

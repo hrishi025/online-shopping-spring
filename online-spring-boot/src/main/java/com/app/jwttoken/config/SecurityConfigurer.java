@@ -34,7 +34,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		//for enabling cors use http.cors
 		http.cors();
 		
-		http.csrf().disable().authorizeRequests().antMatchers("/authenticate","/user/signup","/product/list").permitAll().anyRequest().authenticated()
+		http.csrf().disable().authorizeRequests().antMatchers("/authenticate","/user/signup","/product/list","/product/{prod_id}").permitAll().anyRequest().authenticated()
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 				
 		http.addFilterBefore(JwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

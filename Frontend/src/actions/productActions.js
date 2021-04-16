@@ -214,11 +214,10 @@ export const getProductDetails = (prod_id) => {
       type: PRODUCT_FETCH_REQUEST,
     })
 
-    const url = request_url + `/productdetails/${prod_id}`
+    const url = request_url + `/product/${prod_id}`
     console.log(url)
     const header = {
       'Content-Type': 'application/json',
-      Authorization:'Bearer ' + sessionStorage['token'],
     }
 
     axios
