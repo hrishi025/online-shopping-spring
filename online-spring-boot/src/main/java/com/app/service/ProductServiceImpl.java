@@ -25,7 +25,7 @@ public class ProductServiceImpl implements IProductService {
 
 	//for getting seller products
 	@Autowired
-	UsersRepository userRepo;
+	IUsersService userService;
 	
 	@Override
 	public List<Products> productListAll() {
@@ -33,14 +33,14 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public List<Products> productListSeller(int user_id) {
-		Users u = userRepo.findById(user_id).get();
+	public List<Products> productListSeller() {
+		Users u = userService.getUser();
 		return repo.findAllByUser(u);
 	}
 
 	@Override
 	public Products addProduct(Products product) {
-		product.setUser(userRepo.findByUserName(product.getUser().getUserName()));
+		product.setUser(userService.getUser());
 		System.out.println(product.getCategory().getCatId());
 		System.out.println(product.getCompany().getCompId());
 		return repo.save(product);
@@ -61,11 +61,12 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public Products updateProductQuantity(int prod_id, int prod_qty, String prod_title, Float prod_price) {
-		Products p = repo.findById(prod_id).get();
-		p.setProdQty(prod_qty);
-		p.setProdPrice(prod_price);
-		p.setProdTitle(prod_title);
+	public Products updateProduct(Products product) {
+		Products p = repo.findById(product.getProdId()).get();
+		p.setProdQty(product.getProdQty());
+		p.setProdPrice(product.getProdPrice());
+		p.setProdTitle(product.getProdTitle());
+		p.setPhoto(product.getPhoto());
 		return repo.save(p);
 	}
 

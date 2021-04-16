@@ -31,7 +31,6 @@ const AddProductScreen = (props) => {
 
   const [validation, setValidation] = useState(false);
 
-
   const addnewProduct = () => {
     console.log("in add Product button function");
 

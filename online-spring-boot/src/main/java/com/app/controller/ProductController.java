@@ -42,21 +42,21 @@ public class ProductController {
 		return new ResponseDTO<>(HttpStatus.OK, "products found", productService.productListAll());
 	}
 
-	@GetMapping("/seller/{user_id}")
-	public ResponseDTO<?> getProductListSeller(@PathVariable int user_id) {
-		System.out.println("in get seller products list product controller: " + user_id);
-		return new ResponseDTO<>(HttpStatus.OK, "products found", productService.productListSeller(user_id));
+	@GetMapping("/seller")
+	public ResponseDTO<?> getProductListSeller() {
+		System.out.println("in get seller products list product controller: " );
+		return new ResponseDTO<>(HttpStatus.OK, "products found", productService.productListSeller());
 	}
 
 	@PostMapping("/add")
 	public ResponseDTO<?> addProduct(@RequestPart String prod_title, @RequestPart String prod_description,
 			@RequestPart String prod_price, @RequestPart String prod_qty, @RequestPart String cat_id,
 			@RequestPart String comp_id, @RequestPart(value = "file") MultipartFile file) {
-		
+
 		String imagePath = bucketController.uploadFile(file);
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		
+
 		System.out.println(username);
 		System.out.println("in get product add product controller: " + prod_description + " " + prod_price + " "
 				+ prod_qty + " " + prod_title + " " + cat_id + " " + comp_id + " " + imagePath);
@@ -73,7 +73,7 @@ public class ProductController {
 		p.setProdDescription(prod_description);
 		p.setUser(new Users());
 		p.getUser().setUserName(username);
-		
+
 		return new ResponseDTO<>(HttpStatus.OK, "product added", productService.addProduct(p));
 	}
 
@@ -90,11 +90,32 @@ public class ProductController {
 	}
 
 	@PostMapping("/update/{prod_id}")
-	public ResponseDTO<?> updateProductQuantity(@PathVariable int prod_id, @RequestBody Products product) {
-		System.out.println("in get product qty update product controller: " + product.getProdTitle()
-				+ product.getProdQty() + product.getProdTitle() + product.getProdPrice());
-		return new ResponseDTO<>(HttpStatus.OK, "product updated", productService.updateProductQuantity(prod_id,
-				product.getProdQty(), product.getProdTitle(), product.getProdPrice()));
+	public ResponseDTO<?> updateProduct(@PathVariable int prod_id, @RequestPart String prod_title,
+			@RequestPart String prod_price, @RequestPart String prod_qty, @RequestPart String photo,
+			@RequestPart(value = "file") MultipartFile file) {
+
+		System.out.println("in get product qty update product controller: " + prod_qty);
+
+		Products p = new Products();
+
+		int qty = Integer.parseInt(prod_qty);		
+		
+		p.setProdId(prod_id);
+		p.setProdPrice(Float.valueOf(prod_price));
+		p.setProdQty(qty);
+		p.setProdTitle(prod_title);
+		p.setPhoto(photo);
+
+		System.out.println(p);
+
+		String delete = bucketController.deleteFile(photo);
+		System.out.println(delete);
+		String imagePath = bucketController.uploadFile(file);
+
+		p.setPhoto(imagePath);
+
+		return new ResponseDTO<>(HttpStatus.OK, "product updated", productService.updateProduct(p));
+
 	}
 
 }

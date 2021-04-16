@@ -76,13 +76,13 @@ export const addProduct = (
     formData.append('prod_price', prod_price)
     formData.append('comp_id', comp_id)
     formData.append('prod_qty', prod_qty)
-    formData.append('photo', photo)
+    formData.append('file', photo)
     
     dispatch({
       type: PRODUCT_POST_REQUEST,
     })
 
-    const url = request_url + '/addproduct'
+    const url = request_url + '/product/add'
 
     const header = {
       headers: {
@@ -307,7 +307,7 @@ export const deleteProduct = (prod_id) => {
       type: PRODUCT_DELETE_REQUEST,
     })
 
-    const url = request_url + `/product/${prod_id}`
+    const url = request_url + `/product/delete/${prod_id}`
     console.log(url)
     const header = {
       headers: {

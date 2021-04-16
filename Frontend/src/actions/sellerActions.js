@@ -39,7 +39,7 @@ export const getProductList = () => {
       type: PRODUCT_FETCH_REQUEST,
     })
 
-    const url = request_url + '/seller/product'
+    const url = request_url + '/product/seller'
 
     const header = {
       headers: {
@@ -71,7 +71,8 @@ export const updateProduct = (
   prod_title,
   prod_price,
   prod_qty,
-  productPhoto
+  productPhoto,
+  oldPhoto
 ) => {
   return (dispatch) => {
     dispatch({
@@ -81,12 +82,12 @@ export const updateProduct = (
     const formData = new FormData()
 
     formData.append('prod_title', prod_title)
-    formData.append('prod_id', prod_id)
     formData.append('prod_price', prod_price)
     formData.append('prod_qty', prod_qty)
-    formData.append('photo', productPhoto)
+    formData.append('photo', oldPhoto)
+    formData.append('file', productPhoto)
 
-    const url = request_url + '/product/update'
+    const url = request_url + `/product/update/${prod_id}`
     console.log(` update product --.>prod_id--->${prod_id} 
                   prod_title--->${prod_title}  prod_price--->${prod_price} 
                   prod_qty--->${prod_qty} prod_qty--->${productPhoto}`)

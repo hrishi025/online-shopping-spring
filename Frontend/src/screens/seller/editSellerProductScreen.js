@@ -21,6 +21,8 @@ const EditSellerProductScreen = (props) => {
   const [productPrice, setProductPrice] = useState('' + prod_price)
   const [productQuantity, setproductQuantity] = useState('' + prod_qty)
   const [productPhoto, setProductPhoto] = useState('' + photo)
+  const [oldPhoto, setOldPhoto] = useState('' + photo)
+
 
   const photoChangeHandler = (e) => {
     setProductPhoto(e.target.files[0])
@@ -46,7 +48,8 @@ const EditSellerProductScreen = (props) => {
         productTitle,
         productPrice,
         productQuantity,
-        productPhoto
+        productPhoto,
+        oldPhoto
       )
     )
   }
