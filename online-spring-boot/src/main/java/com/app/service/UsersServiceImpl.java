@@ -64,7 +64,7 @@ public class UsersServiceImpl implements IUsersService {
 	
 	public Users getUser() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		return repo.findByUserName(username);
+		return repo.findByUserEmail(username);
 	}
 	
 }

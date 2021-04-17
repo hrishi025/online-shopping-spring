@@ -10,4 +10,8 @@ public interface IMyorderService {
 	
 	Myorder getMyorderByMyorderId(int myorder_id);
 
+	float getProductRatingAvg(int prod_id);
+	
+	List<Myorder> getProductComments(int prod_id);
+	
 }

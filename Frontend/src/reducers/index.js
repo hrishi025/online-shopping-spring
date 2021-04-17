@@ -15,6 +15,7 @@ import {
   categoryFetchReducer,
   getProductRatingReducer,
   getProductCommentReducer,
+  getSingleProductReducer,
   // sellerProfileReducer
 } from './productReducer'
 
@@ -75,6 +76,7 @@ const reducers = combineReducers({
 
   //product stores
   allProductStore: getProductReducer,
+  singleProductStore:getSingleProductReducer,
   addProductStore: productPostReducer,
   updateProductStore: productUpdateReducer,
   deleteProductStore: productDeleteReducer,

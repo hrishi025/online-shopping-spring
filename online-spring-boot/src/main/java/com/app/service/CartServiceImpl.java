@@ -47,14 +47,14 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public Cart addToCart(Cart cart, String username) {
-		Users u = userRepo.findByUserName(username);
+		Users u = userRepo.findByUserEmail(username);
 		cart.setUser(u);
 		return cartRepo.save(cart);
 	}
 
 	@Override
 	public List<Cart> getCartItems(String username) {
-		Users u = userRepo.findByUserName(username);
+		Users u = userRepo.findByUserEmail(username);
 		List<Cart> c = cartRepo.findByUser(u);
 		System.out.println(c);
 		return c;

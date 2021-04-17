@@ -25,6 +25,9 @@ import {
   PRODUCT_COMMENT_FETCH_FAIL,
   PRODUCT_COMMENT_FETCH_SUCCESS,
   PRODUCT_COMMENT_FETCH_REQUEST,
+  SINGLE_PRODUCT_FETCH_REQUEST,
+  SINGLE_PRODUCT_FETCH_SUCCESS,
+  SINGLE_PRODUCT_FETCH_FAIL,
 } from './../constants/productConstants'
 
 export const getProductList = () => {
@@ -211,7 +214,7 @@ export const getAllCompanies = () => {
 export const getProductDetails = (prod_id) => {
   return (dispatch) => {
     dispatch({
-      type: PRODUCT_FETCH_REQUEST,
+      type: SINGLE_PRODUCT_FETCH_REQUEST,
     })
 
     const url = request_url + `/product/${prod_id}`
@@ -224,13 +227,13 @@ export const getProductDetails = (prod_id) => {
       .get(url, header)
       .then((response) => {
         dispatch({
-          type: PRODUCT_FETCH_SUCCESS,
+          type: SINGLE_PRODUCT_FETCH_SUCCESS,
           payload: response.data,
         })
       })
       .catch((error) => {
         dispatch({
-          type: PRODUCT_FETCH_FAIL,
+          type: SINGLE_PRODUCT_FETCH_FAIL,
           payload: error,
         })
       })
@@ -243,12 +246,11 @@ export const getProductRatings = (prod_id) => {
       type: PRODUCT_RATING_FETCH_REQUEST,
     })
 
-    const url = request_url + `/productRatingAvg/${prod_id}`
+    const url = request_url + `/product/ratingavg/${prod_id}`
 
     console.log(url)
     const header = {
-      'Content-Type': 'application/json',
-      Authorization:'Bearer ' + sessionStorage['token'],
+      'Content-Type': 'application/json'
     }
 
     axios
@@ -274,7 +276,7 @@ export const getProductComments = (prod_id) => {
       type: PRODUCT_COMMENT_FETCH_REQUEST,
     })
 
-    const url = request_url + `/productComment/${prod_id}`
+    const url = request_url + `/product/comments/${prod_id}`
 
     console.log(url)
     const header = {

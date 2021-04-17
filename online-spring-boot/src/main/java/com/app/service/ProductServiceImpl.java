@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.ProductsRepository;
-import com.app.dao.UsersRepository;
 import com.app.pojos.Products;
 import com.app.pojos.Users;
 

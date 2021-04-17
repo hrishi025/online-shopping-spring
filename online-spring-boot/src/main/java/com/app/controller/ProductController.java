@@ -18,6 +18,7 @@ import com.app.pojos.Category;
 import com.app.pojos.Company;
 import com.app.pojos.Products;
 import com.app.pojos.Users;
+import com.app.service.IMyorderService;
 import com.app.service.IProductService;
 
 @RestController
@@ -27,6 +28,9 @@ public class ProductController {
 
 	@Autowired
 	IProductService productService;
+	
+	@Autowired
+	IMyorderService myorderService;
 
 	@Autowired
 	BucketController bucketController;
@@ -117,4 +121,16 @@ public class ProductController {
 
 	}
 
+	@GetMapping("/ratingavg/{prod_id}")
+	public ResponseDTO<?> getProductRating(@PathVariable int prod_id) {
+		System.out.println("in get product ratings product controller: " + prod_id);
+		return new ResponseDTO<>(HttpStatus.OK, "product found", myorderService.getProductRatingAvg(prod_id));
+	}
+
+	@GetMapping("/comments/{prod_id}")
+	public ResponseDTO<?> getProductComments(@PathVariable int prod_id) {
+		System.out.println("in get product comments product controller: " + prod_id);
+		return new ResponseDTO<>(HttpStatus.OK, "product found", myorderService.getProductComments(prod_id));
+	}
+	
 }

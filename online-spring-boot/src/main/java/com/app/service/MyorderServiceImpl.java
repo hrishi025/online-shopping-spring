@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.MyorderRepository;
 import com.app.pojos.Myorder;
+import com.app.pojos.Orderdetails;
 
 @Service
 @Transactional
@@ -29,6 +30,30 @@ public class MyorderServiceImpl implements IMyorderService {
 	@Override
 	public Myorder getMyorderByMyorderId(int myorder_id) {
 		return myorderRepo.findById(myorder_id).get();
+	}
+
+	@Override
+	public float getProductRatingAvg(int prod_id) {
+		List<Myorder> list = myorderRepo.getProductByProdId(prod_id);
+
+		float rating = 0;
+		int count = 0;
+
+		for (Myorder myorder : list) {
+			List<Orderdetails> od = myorder.getOrderDetails();
+			for (Orderdetails o : od) {
+				if (o.getRating() != null) {
+					rating = rating + o.getRating();
+					count++;
+				}
+			}
+		}
+		return rating / count;
+	}
+
+	@Override
+	public List<Myorder> getProductComments(int prod_id) {
+		return myorderRepo.getProductByProdId(prod_id);
 	}
 
 }

@@ -31,6 +31,10 @@ import {
   PRODUCT_COMMENT_FETCH_SUCCESS,
   PRODUCT_COMMENT_FETCH_FAIL,
   PRODUCT_COMMENT_FETCH_RESET,
+  SINGLE_PRODUCT_FETCH_REQUEST,
+  SINGLE_PRODUCT_FETCH_SUCCESS,
+  SINGLE_PRODUCT_FETCH_FAIL,
+  SINGLE_PRODUCT_FETCH_RESET,
 } from "./../constants/productConstants";
 
 export const getProductReducer = (state = {}, action) => {
@@ -45,6 +49,25 @@ export const getProductReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
 
     case PRODUCT_FETCH_RESET:
+      return {}
+
+    default:
+      return state
+  }
+}
+
+export const getSingleProductReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SINGLE_PRODUCT_FETCH_REQUEST:
+      return { loading: true }
+
+    case SINGLE_PRODUCT_FETCH_SUCCESS:
+      return { loading: false, response: action.payload }
+
+    case SINGLE_PRODUCT_FETCH_FAIL:
+      return { loading: false, error: action.payload }
+
+    case SINGLE_PRODUCT_FETCH_RESET:
       return {}
 
     default:

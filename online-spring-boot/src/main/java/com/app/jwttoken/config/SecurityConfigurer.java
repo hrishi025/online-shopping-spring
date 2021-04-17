@@ -20,7 +20,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	MyUserDetailsService userService;
-	
+
 	@Autowired
 	JwtRequestFilter JwtRequestFilter;
 
@@ -30,13 +30,16 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		//for enabling cors use http.cors
+
+		// for enabling cors use http.cors
 		http.cors();
-		
-		http.csrf().disable().authorizeRequests().antMatchers("/authenticate","/user/signup","/product/list","/product/{prod_id}").permitAll().anyRequest().authenticated()
-				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-				
+
+		http.csrf().disable().authorizeRequests()
+				.antMatchers("/authenticate", "/user/signup", "/product/list", "/product/{prod_id}",
+						"/product/ratingavg/{prod_id}","/product/comments/{prod_id}").permitAll()
+				.anyRequest().authenticated().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
 		http.addFilterBefore(JwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
