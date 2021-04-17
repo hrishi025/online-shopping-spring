@@ -15,5 +15,7 @@ public interface IMyorderService {
 	List<Myorder> getProductComments(int prod_id);
 
 	List<Myorder> getAllMyordersOfCustomers();
+
+	Myorder updateMyorderStatus(Myorder myorder);
 	
 }

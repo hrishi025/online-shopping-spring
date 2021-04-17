@@ -13,18 +13,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "myorder")
 public class Myorder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "myorder_id")
+	@JsonProperty("myorder_id")
 	private Integer myorderId;
 
 	@Column(name = "orderDate")
 	private String orderDate;
 
 	@Column(name = "status", columnDefinition ="int default 0")
+	@JsonProperty("status")
 	private Integer status = 0;
 
 	@Column(name = "total_price")

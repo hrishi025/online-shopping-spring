@@ -59,5 +59,13 @@ public class MyorderServiceImpl implements IMyorderService {
 		return myorderRepo.getProductByProdId(prod_id);
 	}
 
+	@Override
+	public Myorder updateMyorderStatus(Myorder myorder) {
+		Myorder newMyorder = myorderRepo.findById(myorder.getMyorderId()).get();
+		newMyorder.setStatus(myorder.getStatus());
+		newMyorder.getOrderDetails().size();	// accessing size of order details to avoid lazy init error
+		return myorderRepo.save(newMyorder);
+	}
+
 	
 }

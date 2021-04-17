@@ -47,7 +47,7 @@ export const updateMyOrder = (myorder_id, status) => {
 			type: MYORDER_UPDATE_REQUEST
 		});
 
-		const url = request_url + '/updateMyorder';
+		const url = request_url + '/myorder/update/status';
 
 		const body = {
 			myorder_id,
