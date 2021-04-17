@@ -288,7 +288,7 @@ export const getAllCustomersMyOrdersForSeller = () => {
       type: SELLER_ALL_CUSTOMER_MYORDERS_REQUEST,
     })
 
-    const url = request_url + '/seller/alluserorders'
+    const url = request_url + '/myorder/seller'
     console.log(`in get seller max sale productss`)
     const header = {
       headers: {

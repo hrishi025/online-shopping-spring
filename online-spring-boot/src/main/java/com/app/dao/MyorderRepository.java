@@ -15,5 +15,8 @@ public interface MyorderRepository extends JpaRepository<Myorder, Integer>{
 
 	@Query("Select m from Myorder m left outer join fetch m.orderDetails o where o.product.prodId = :pid ")
 	List<Myorder> getProductByProdId(@Param("pid") Integer prod_id);
+
+	@Query("Select m from Myorder m left outer join fetch m.orderDetails o where o.product.user.userId = :u ")
+	List<Myorder> getAllCustomersMyOrdersWithOrderDetais(@Param("u")Integer userId);
 	
 }

@@ -24,8 +24,8 @@ public class Myorder {
 	@Column(name = "orderDate")
 	private String orderDate;
 
-	@Column(name = "status")
-	private Integer status;
+	@Column(name = "status", columnDefinition ="int default 0")
+	private Integer status = 0;
 
 	@Column(name = "total_price")
 	private Float totalPrice;

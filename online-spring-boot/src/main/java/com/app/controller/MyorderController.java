@@ -23,7 +23,13 @@ public class MyorderController {
 	
 	@GetMapping("/")
 	public ResponseDTO<?> myorderFetch() {
-		System.out.println("in user signup controller: ");
+		System.out.println("in myorder fetch controller: ");
 		return new ResponseDTO<>(HttpStatus.OK, "my orders fetched", myorderService.getAllMyordersOfCurrentUser());
+	}
+	
+	@GetMapping("/seller")
+	public ResponseDTO<?> myordersOfCustomersForSellerFetch() {
+		System.out.println("in user seller customer myorder fetch controller: ");
+		return new ResponseDTO<>(HttpStatus.OK, "customers myorders fetched", myorderService.getAllMyordersOfCustomers());
 	}
 }

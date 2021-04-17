@@ -1,64 +1,64 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { updateMyOrder } from '../../actions/myorderActions'
-import { getAllCustomersMyOrdersForSeller } from '../../actions/sellerActions'
-import { request_url } from '../../config/url'
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateMyOrder } from "../../actions/myorderActions";
+import { getAllCustomersMyOrdersForSeller } from "../../actions/sellerActions";
 
 const SellerAllCustomersMyOrderScreen = (props) => {
   const getAllCustomerMyOrdersForSellerStore = useSelector(
     (store) => store.getAllCustomerMyOrdersForSellerStore
-  )
+  );
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('in use effect of MyOrderScreen')
-    dispatch(getAllCustomersMyOrdersForSeller())
-  }, [])
+    console.log("in use effect of MyOrderScreen");
+    dispatch(getAllCustomersMyOrdersForSeller());
+  }, []);
 
   // to re-render page after delete button is pressed
-  const updateMyOrderStore = useSelector((state) => state.updateMyOrderStore)
+  const updateMyOrderStore = useSelector((state) => state.updateMyOrderStore);
   useEffect(() => {
     if (
       updateMyOrderStore.response &&
-      updateMyOrderStore.response.status == 'OK'
+      updateMyOrderStore.response.status == "OK"
     ) {
-      dispatch(getAllCustomersMyOrdersForSeller())
+      dispatch(getAllCustomersMyOrdersForSeller());
     }
   }, [
     updateMyOrderStore.response,
     updateMyOrderStore.loading,
     updateMyOrderStore.error,
-  ])
+  ]);
 
   const onOrderDetails = (p) => {
     props.history.push({
-      pathname: '/order-details',
+      pathname: "/order-details",
       state: p, // your data array of objects
-    })
-  }
+    });
+  };
 
   const onCancelOrder = (p) => {
-    console.log('inside cancel my order' + p)
-    dispatch(updateMyOrder(p.myorder_id, 2))
-  }
+    console.log("inside cancel my order" + p);
+    dispatch(updateMyOrder(p.myorder_id, 2));
+  };
 
   const onDeliverOrder = (p) => {
-    console.log('inside Deliver my order' + p)
-    dispatch(updateMyOrder(p.myorder_id, 1))
-  }
+    console.log("inside Deliver my order" + p);
+    dispatch(updateMyOrder(p.myorder_id, 1));
+  };
 
   const goBackHandler = () => {
-    props.history.push('/seller')
-  }
+    props.history.push("/seller");
+  };
 
   return (
     <div className="container">
       <div className="text-left border border-light p-3 mb-2">
         <button
           className="text-left btn btn-outline-success"
-          style={{ flex: 'left' }}
-          onClick={goBackHandler}>
+          style={{ flex: "left" }}
+          onClick={goBackHandler}
+        >
           Go Back
         </button>
       </div>
@@ -77,7 +77,8 @@ const SellerAllCustomersMyOrderScreen = (props) => {
                     className="table-responsive table mt-2"
                     id="dataTable"
                     role="grid"
-                    aria-describedby="dataTable_info">
+                    aria-describedby="dataTable_info"
+                  >
                     <table className="table my-0" id="dataTable">
                       <thead>
                         <tr>
@@ -97,48 +98,63 @@ const SellerAllCustomersMyOrderScreen = (props) => {
                             (p) => {
                               return (
                                 <tr>
-                                  <td style={{ width: '10%' }}>
+                                  <td style={{ width: "10%" }}>
                                     <img
-                                      src={p.photo}
+                                      src={p.orderDetails[0].product.photo}
                                       className=" cover rounded mx-auto d-block img-fluid-myorders"
                                       alt="Image Loading Failed"
                                       width="auto"
                                       height="auto"
                                     />
                                   </td>
-                                  <td>{p.prod_title}</td>
+                                  <td>{p.orderDetails[0].product.prod_title}</td>
                                   <td>{p.orderDate}</td>
-                                  <td>{p.status}</td>
+                                  {p.status == 0 && (
+                                    <td style={{ color: "red" }}>
+                                      not delivered
+                                    </td>
+                                  )}
+                                  {p.status == 1 && (
+                                    <td style={{ color: "green" }}>
+                                      delivered
+                                    </td>
+                                  )}
+                                  {p.status == 2 && (
+                                    <td style={{ color: "grey" }}>cancelled</td>
+                                  )}
                                   <td>
-                                    {p.status == 'not delivered' && (
+                                    {p.status == 0 && (
                                       <button
                                         onClick={() => {
-                                          onCancelOrder(p)
+                                          onCancelOrder(p);
                                         }}
-                                        className="btn btn-sm btn-danger mx-2">
+                                        className="btn btn-sm btn-danger mx-2"
+                                      >
                                         Cancel
                                       </button>
                                     )}
-                                    {p.status == 'not delivered' && (
+                                    {p.status == 0 && (
                                       <button
                                         onClick={() => {
-                                          onDeliverOrder(p)
+                                          onDeliverOrder(p);
                                         }}
-                                        className="btn btn-sm btn-success mx-2">
+                                        className="btn btn-sm btn-success mx-2"
+                                      >
                                         Deliver Order
                                       </button>
                                     )}
 
                                     <button
                                       onClick={() => {
-                                        onOrderDetails(p)
+                                        onOrderDetails(p);
                                       }}
-                                      className="btn btn-sm btn-success mx-2">
+                                      className="btn btn-sm btn-success mx-2"
+                                    >
                                       Order Details
                                     </button>
                                   </td>
                                 </tr>
-                              )
+                              );
                             }
                           )}
                       </tbody>
@@ -151,7 +167,7 @@ const SellerAllCustomersMyOrderScreen = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SellerAllCustomersMyOrderScreen
+export default SellerAllCustomersMyOrderScreen;

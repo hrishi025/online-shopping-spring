@@ -22,14 +22,17 @@ public class MyorderServiceImpl implements IMyorderService {
 
 	@Override
 	public List<Myorder> getAllMyordersOfCurrentUser() {
-		List<Myorder> myorderList = myorderRepo.getMyOrderWithOrderDetais(usersService.getUser().getUserId());
-		System.out.println(myorderList);
-		return myorderList;
+		return myorderRepo.getMyOrderWithOrderDetais(usersService.getUser().getUserId());
 	}
 
 	@Override
 	public Myorder getMyorderByMyorderId(int myorder_id) {
 		return myorderRepo.findById(myorder_id).get();
+	}
+	
+	@Override
+	public List<Myorder> getAllMyordersOfCustomers() {
+		return myorderRepo.getAllCustomersMyOrdersWithOrderDetais(usersService.getUser().getUserId());
 	}
 
 	@Override
@@ -56,4 +59,5 @@ public class MyorderServiceImpl implements IMyorderService {
 		return myorderRepo.getProductByProdId(prod_id);
 	}
 
+	
 }
