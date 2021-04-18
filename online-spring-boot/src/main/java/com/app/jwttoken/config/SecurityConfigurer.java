@@ -24,6 +24,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Autowired
 	JwtRequestFilter JwtRequestFilter;
 
+	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userService);
 	}

@@ -62,6 +62,7 @@ public class UsersServiceImpl implements IUsersService {
 		return "apply seller request success";
 	}
 	
+	@Override
 	public Users getUser() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return repo.findByUserEmail(username);
