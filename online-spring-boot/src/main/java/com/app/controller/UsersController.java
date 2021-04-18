@@ -56,5 +56,17 @@ public class UsersController {
 		System.out.println("in apply seller user controller: " + id);
 		return new ResponseDTO<>(HttpStatus.OK, "seller apply success", usersService.applySeller(id));
 	}
-	
+
+	@GetMapping("/list")
+	public ResponseDTO<?> getUsersListAll() {
+		System.out.println("in get all products Search list product controller");
+		return new ResponseDTO<>(HttpStatus.OK, "products found", usersService.getusersListAll());
+	}
+
+	@PostMapping("/action")
+	public ResponseDTO<?> Approve(@RequestBody Users u) {
+		System.out.println("in get all products Search list product controller: " + u);
+		return new ResponseDTO<>(HttpStatus.OK, "products found", usersService.userActionApproveSuspend(u));
+	}
+
 }

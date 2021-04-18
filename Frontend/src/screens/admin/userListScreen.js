@@ -1,69 +1,60 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  getAllUsers,
-  approveUser,
-  suspendUser,
-} from '../../actions/userActions'
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeUserStatus, getAllUsers } from "../../actions/userActions";
 
 const UserListScreen = (props) => {
-  const dispatch = useDispatch()
-  const userListStore = useSelector((store) => store.userListStore)
-  const { response } = userListStore
+  const dispatch = useDispatch();
+  const userListStore = useSelector((store) => store.userListStore);
+  const { response } = userListStore;
 
   useEffect(() => {
-    dispatch(getAllUsers())
-  }, [])
+    dispatch(getAllUsers());
+  }, []);
 
   // to render list after approve button is pressed
-  const userApproveStore = useSelector((state) => state.userApproveStore)
+  const userApproveStore = useSelector((state) => state.userApproveStore);
   useEffect(() => {
-    if (
-      userApproveStore.response &&
-      userApproveStore.response.status == 'OK'
-    ) {
-      dispatch(getAllUsers())
+    if (userApproveStore.response && userApproveStore.response.status == "OK") {
+      dispatch(getAllUsers());
     }
   }, [
     userApproveStore.error,
     userApproveStore.response,
     userApproveStore.loading,
-  ])
+  ]);
 
   // to render list after approve button is pressed
-  const userSuspendStore = useSelector((state) => state.userSuspendStore)
+  const userSuspendStore = useSelector((state) => state.userSuspendStore);
   useEffect(() => {
-    if (
-      userSuspendStore.response &&
-      userSuspendStore.response.status == 'OK'
-    ) {
-      dispatch(getAllUsers())
+    if (userSuspendStore.response && userSuspendStore.response.status == "OK") {
+      dispatch(getAllUsers());
     }
   }, [
     userSuspendStore.error,
     userSuspendStore.response,
     userSuspendStore.loading,
-  ])
+  ]);
 
   const onApprove = (u) => {
-    dispatch(approveUser(u.user_id))
-  }
+    dispatch(changeUserStatus(u.user_id,1));
+  };
 
   const onSuspend = (u) => {
-    dispatch(suspendUser(u.user_id))
-  }
+    dispatch(changeUserStatus(u.user_id,2));
+  };
 
   const goBackHandler = () => {
-    props.history.push('/admin')
-  }
+    props.history.push("/admin");
+  };
 
   return (
     <div className="container">
       <div className="text-left border border-light p-3 mb-2">
         <button
           className="text-left btn btn-outline-success"
-          style={{ flex: 'left' }}
-          onClick={goBackHandler}>
+          style={{ flex: "left" }}
+          onClick={goBackHandler}
+        >
           Go Back
         </button>
       </div>
@@ -81,7 +72,8 @@ const UserListScreen = (props) => {
                     className="table-responsive table mt-2"
                     id="dataTable"
                     role="grid"
-                    aria-describedby="dataTable_info">
+                    aria-describedby="dataTable_info"
+                  >
                     <table className="table my-0" id="dataTable">
                       <thead>
                         <tr>
@@ -100,30 +92,33 @@ const UserListScreen = (props) => {
                             return (
                               <tr>
                                 <td>{u.user_id}</td>
-                                <td>{u.user_name}</td>
-                                <td>{u.user_email}</td>
-                                <td>{u.user_status}</td>
+                                <td>{u.name}</td>
+                                <td>{u.email}</td>
+                                {u.status == 0 && <td>not verified</td>}
+                                {u.status == 1 && <td>verified</td>}
+                                {u.status == 2 && <td>suspended</td>}
                                 <td>
-                                  {(u.user_status == 'suspended' ||
-                                    u.user_status == 'not verified') && (
+                                  {(u.status == 2 || u.status == 0) && (
                                     <button
                                       onClick={() => onApprove(u)}
                                       type="button"
-                                      className="btn btn-outline-success ">
+                                      className="btn btn-outline-success "
+                                    >
                                       Approve User
                                     </button>
                                   )}
-                                  {u.user_status == 'verified' && (
+                                  {u.status == 1 && (
                                     <button
                                       onClick={() => onSuspend(u)}
                                       type="button"
-                                      className="btn btn-outline-danger">
+                                      className="btn btn-outline-danger"
+                                    >
                                       Suspend User
                                     </button>
                                   )}
                                 </td>
                               </tr>
-                            )
+                            );
                           })}
                       </tbody>
                     </table>
@@ -135,7 +130,7 @@ const UserListScreen = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserListScreen
+export default UserListScreen;

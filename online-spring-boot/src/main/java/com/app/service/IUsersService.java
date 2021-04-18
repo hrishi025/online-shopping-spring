@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.util.List;
+
 import com.app.dto.EditProfileDTO;
 import com.app.pojos.Users;
 
@@ -10,4 +12,6 @@ public interface IUsersService {
 	Users userUpdate(int id, EditProfileDTO u);
 	String applySeller(int id);
 	Users getUser();
+	List<Users> getusersListAll();
+	Users userActionApproveSuspend(Users u);
 }

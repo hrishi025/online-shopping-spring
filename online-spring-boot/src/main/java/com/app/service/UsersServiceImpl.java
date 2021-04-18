@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +69,17 @@ public class UsersServiceImpl implements IUsersService {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		return repo.findByUserEmail(username);
 	}
-	
+
+	@Override
+	public List<Users> getusersListAll() {
+		return repo.findAll();
+	}
+
+	@Override
+	public Users userActionApproveSuspend(Users u) {
+		Users user = repo.findById(u.getUserId()).get();
+		user.setUserStatus(u.getUserStatus());
+		return repo.save(user);
+	}
+
 }

@@ -160,7 +160,7 @@ export const getAllUsers = () => {
       },
     }
 
-    const url = request_url + '/admin/user'
+    const url = request_url + '/user/list'
     axios
       .get(url, header)
       .then((response) => {
@@ -178,16 +178,18 @@ export const getAllUsers = () => {
   }
 }
 
-export const approveUser = (id) => {
+// approve or suspend
+export const changeUserStatus = (user_id,status) => {
   return (dispatch) => {
     dispatch({
       type: USER_APPROVE_REQUEST,
     })
 
-    const url = request_url + '/user/approve-user'
+    const url = request_url + '/user/action'
 
     const body = {
-      id,
+      user_id,
+      status,
     }
 
     const header = {
@@ -198,7 +200,7 @@ export const approveUser = (id) => {
     }
 
     console.log(sessionStorage['token'])
-    console.log(id)
+    
     axios
       .post(url, body, header)
       .then((response) => {
@@ -210,43 +212,6 @@ export const approveUser = (id) => {
       .catch((error) => {
         dispatch({
           type: USER_APPROVE_FAIL,
-          payload: error,
-        })
-      })
-  }
-}
-
-export const suspendUser = (id) => {
-  return (dispatch) => {
-    dispatch({
-      type: USER_SUSPEND_REQUEST,
-    })
-
-    const url = request_url + '/user/suspend-user'
-
-    const body = {
-      id,
-    }
-
-    const header = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization:'Bearer ' + sessionStorage['token'],
-      },
-    }
-    console.log(sessionStorage['token'])
-    console.log(id)
-    axios
-      .post(url, body, header)
-      .then((response) => {
-        dispatch({
-          type: USER_SUSPEND_SUCCESS,
-          payload: response.data,
-        })
-      })
-      .catch((error) => {
-        dispatch({
-          type: USER_SUSPEND_FAIL,
           payload: error,
         })
       })
