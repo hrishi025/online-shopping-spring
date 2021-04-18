@@ -57,7 +57,7 @@ export const addCategory = (cat_title, cat_description) => {
       type: CATEGORY_ADD_REQUEST,
     })
 
-    const url = request_url + '/categor/add';
+    const url = request_url + '/category/add';
 
     const header = {
       headers: {

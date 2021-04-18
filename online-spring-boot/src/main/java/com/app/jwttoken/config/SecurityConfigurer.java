@@ -37,8 +37,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/authenticate", "/user/signup", "/product/list", "/product/{prod_id}",
-						"/product/ratingavg/{prod_id}","/product/comments/{prod_id}").permitAll()
-				.anyRequest().authenticated().and().sessionManagement()
+						"/product/ratingavg/{prod_id}", "/product/comments/{prod_id}",
+						"/product/list/search/{prod_name}")
+				.permitAll().anyRequest().authenticated().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		http.addFilterBefore(JwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

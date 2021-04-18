@@ -110,7 +110,7 @@ const SearchScreen = (props) => {
                 <div className="product-container">
                   <div className="card">
                     <img
-                      src={'http://localhost:4000/' + `${p.photo}`}
+                      src={p.photo}
                       className=" cover rounded mx-auto d-block img-fluid"
                       alt="Image Loading Failed"
                       width="300px"

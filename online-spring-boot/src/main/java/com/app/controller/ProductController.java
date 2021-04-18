@@ -133,4 +133,10 @@ public class ProductController {
 		return new ResponseDTO<>(HttpStatus.OK, "product found", myorderService.getProductComments(prod_id));
 	}
 	
+	@GetMapping("/list/search/{prod_name}")
+	public ResponseDTO<?> getProductSearchListAll(@PathVariable String prod_name) {
+		System.out.println("in get all products Search list product controller: " + prod_name);
+		return new ResponseDTO<>(HttpStatus.OK, "products found", productService.productSearchListAll(prod_name));
+	}
+	
 }

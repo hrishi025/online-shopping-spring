@@ -94,10 +94,7 @@ const HomeScreen = (props) => {
 
   return (
     <div>
-      
-      <h1>
-        <strong>Expect More, Pay Less...!!</strong>
-      </h1>{' '}
+
       <hr />
       <div className="products-container">
         {response &&

@@ -17,5 +17,7 @@ public interface IProductService {
 	String deleteProduct(int prod_id);
 
 	Products updateProduct(Products p);
+
+	List<Products> productSearchListAll(String prod_name);
 	
 }

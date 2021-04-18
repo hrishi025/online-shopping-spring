@@ -17,23 +17,18 @@ export const getProductListBySearch = (product_name) => {
         type: SEARCH_PRODUCT_FETCH_REQUEST,
       })
   
-      const url = 'http://localhost:4000/search/product'
+      const url = request_url + `/product/list/search/${product_name}`
   
       console.log(`in action of getProductListBySearch`)
 
       const header = {
         headers: {
           'Content-Type': 'application/json',
-          Authorization:'Bearer ' + sessionStorage['token'],
         },
       }
      
-      const body = {
-        product_name
-      }
-
       axios
-        .post(url, body,header)
+        .get(url, header)
         .then((response) => {
           dispatch({
             type: SEARCH_PRODUCT_FETCH_SUCCESS,
