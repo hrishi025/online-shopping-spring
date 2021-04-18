@@ -1,7 +1,10 @@
 package com.app.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.app.pojos.Role;
 import com.app.pojos.Users;
 
 public interface UsersRepository extends JpaRepository<Users, Integer> {
@@ -13,8 +16,7 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	Users findByUserEmailAndUserPassword(String email, String password);
 
 	Users findByUserEmail(String username);
-
-//	@Modifying
-//	@Query("UPDATE Users u SET u.user_role='CUSTSELL' where u.user_id=:id")
-//	void applySeller(@Param("id") int id);
+	
+	List<Users> findByUserRoleOrUserRole(Role role1,Role role2);
+	
 }

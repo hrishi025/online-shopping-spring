@@ -160,7 +160,7 @@ export const getAllUsers = () => {
       },
     }
 
-    const url = request_url + '/user/list'
+    const url = request_url + '/user/list/users'
     axios
       .get(url, header)
       .then((response) => {
@@ -185,7 +185,7 @@ export const changeUserStatus = (user_id,status) => {
       type: USER_APPROVE_REQUEST,
     })
 
-    const url = request_url + '/user/action'
+    const url = request_url + '/user/action/approve-suspend'
 
     const body = {
       user_id,
@@ -235,7 +235,7 @@ export const getAllSellers = () => {
       },
     }
 
-    const url = request_url + '/admin/seller'
+    const url = request_url + '/user/list/sellers'
     axios
       .get(url, header)
       .then((response) => {
@@ -253,16 +253,17 @@ export const getAllSellers = () => {
   }
 }
 
-export const approveSeller = (id) => {
+export const approveSeller = (user_id) => {
   return (dispatch) => {
     dispatch({
       type: USER_APPROVE_REQUEST,
     })
 
-    const url = request_url + '/admin/approve-seller'
+    const url = request_url + '/user/action/role-change'
 
     const body = {
-      user_id: id,
+      user_id,
+      role:"SELLER",
     }
 
     const header = {
@@ -273,7 +274,7 @@ export const approveSeller = (id) => {
     }
 
     console.log(sessionStorage['token'])
-    console.log(body.user_id)
+
     axios
       .post(url, body, header)
       .then((response) => {
@@ -291,16 +292,17 @@ export const approveSeller = (id) => {
   }
 }
 
-export const suspendSelller = (id) => {
+export const suspendSelller = (user_id) => {
   return (dispatch) => {
     dispatch({
       type: USER_SUSPEND_REQUEST,
     })
 
-    const url = request_url + '/admin/suspend-seller'
+    const url = request_url + '/user/action/role-change'
 
     const body = {
-      user_id: id,
+      user_id,
+      role:"CUSTOMER",
     }
 
     const header = {
@@ -311,7 +313,7 @@ export const suspendSelller = (id) => {
     }
 
     console.log(sessionStorage['token'])
-    console.log(id)
+    
     axios
       .post(url, body, header)
       .then((response) => {

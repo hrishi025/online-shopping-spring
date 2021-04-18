@@ -107,12 +107,14 @@ const SellerListScreen = (props) => {
                             return (
                               <tr>
                                 <td>{u.user_id}</td>
-                                <td>{u.user_name}</td>
-                                <td>{u.user_email}</td>
-                                <td>{u.user_status}</td>
-                                <td>{u.user_role}</td>
+                                <td>{u.name}</td>
+                                <td>{u.email}</td>
+                                {u.status == 0 && <td>not verified</td>}
+                                {u.status == 1 && <td>verified</td>}
+                                {u.status == 2 && <td>suspended</td>}
+                                <td>{u.role}</td>
                                 <td>
-                                  {u.user_role == 'CUSTSELL' && (
+                                  {u.role == 'CUSTSELL' && (
                                     <button
                                       onClick={() => onApprove(u)}
                                       type="button"

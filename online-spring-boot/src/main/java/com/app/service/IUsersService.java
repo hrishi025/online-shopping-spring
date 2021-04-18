@@ -12,6 +12,9 @@ public interface IUsersService {
 	Users userUpdate(int id, EditProfileDTO u);
 	String applySeller(int id);
 	Users getUser();
-	List<Users> getusersListAll();
+	List<Users> getUsersListAll();
 	Users userActionApproveSuspend(Users u);
+	List<Users> getSellerListAll();
+	Users userActionManageSeller(Users u);
+	Users userActionApplyForSeller();
 }

@@ -71,7 +71,7 @@ public class UsersServiceImpl implements IUsersService {
 	}
 
 	@Override
-	public List<Users> getusersListAll() {
+	public List<Users> getUsersListAll() {
 		return repo.findAll();
 	}
 
@@ -80,6 +80,25 @@ public class UsersServiceImpl implements IUsersService {
 		Users user = repo.findById(u.getUserId()).get();
 		user.setUserStatus(u.getUserStatus());
 		return repo.save(user);
+	}
+
+	@Override
+	public List<Users> getSellerListAll() {
+		return repo.findByUserRoleOrUserRole(Role.SELLER, Role.CUSTSELL);
+	}
+
+	@Override
+	public Users userActionManageSeller(Users u) {
+		Users user = repo.findById(u.getUserId()).get();
+		user.setUserRole(u.getUserRole());
+		return repo.save(user);
+	}
+
+	@Override
+	public Users userActionApplyForSeller() {
+		Users u = getUser();
+		u.setUserRole(Role.CUSTSELL);
+		return repo.save(u);
 	}
 
 }

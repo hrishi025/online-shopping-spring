@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.EditProfileDTO;
 import com.app.dto.ResponseDTO;
+import com.app.pojos.Role;
 import com.app.pojos.Users;
 import com.app.service.IUsersService;
 
@@ -57,16 +58,34 @@ public class UsersController {
 		return new ResponseDTO<>(HttpStatus.OK, "seller apply success", usersService.applySeller(id));
 	}
 
-	@GetMapping("/list")
+	@GetMapping("/list/users")
 	public ResponseDTO<?> getUsersListAll() {
 		System.out.println("in get all products Search list product controller");
-		return new ResponseDTO<>(HttpStatus.OK, "products found", usersService.getusersListAll());
+		return new ResponseDTO<>(HttpStatus.OK, "products found", usersService.getUsersListAll());
+	}
+	
+	@GetMapping("/list/sellers")
+	public ResponseDTO<?> getSellersListAll() {
+		System.out.println("in get all products Search list product controller");
+		return new ResponseDTO<>(HttpStatus.OK, "products found", usersService.getSellerListAll());
 	}
 
-	@PostMapping("/action")
-	public ResponseDTO<?> Approve(@RequestBody Users u) {
-		System.out.println("in get all products Search list product controller: " + u);
-		return new ResponseDTO<>(HttpStatus.OK, "products found", usersService.userActionApproveSuspend(u));
+	@PostMapping("/action/approve-suspend")
+	public ResponseDTO<?> userApproveSuspend(@RequestBody Users u) {
+		System.out.println("in all user approve suspend controller: " + u);
+		return new ResponseDTO<>(HttpStatus.OK, "user updated", usersService.userActionApproveSuspend(u));
+	}
+
+	@PostMapping("/action/role-change")
+	public ResponseDTO<?> manageSeller(@RequestBody Users u) {
+		System.out.println("in manage all seller controller: " + u);
+		return new ResponseDTO<>(HttpStatus.OK, "seller updated", usersService.userActionManageSeller(u));
+	}
+	
+	@PatchMapping("/action/apply-for-seller")
+	public ResponseDTO<?> applyForSeller() {
+		System.out.println("in apply for seller controller: ");
+		return new ResponseDTO<>(HttpStatus.OK, "applied for seller", usersService.userActionApplyForSeller());
 	}
 
 }

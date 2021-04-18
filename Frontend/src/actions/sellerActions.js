@@ -122,7 +122,7 @@ export const applyForSeller = () => {
       type: SELLER_APPLY_REQUEST,
     })
 
-    const url = request_url + '/seller/apply'
+    const url = request_url + '/user/action/apply-for-seller'
 
     const header = {
       headers: {

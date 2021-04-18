@@ -32,8 +32,6 @@ const Navigation = () => {
   const onApply = () => {
     dispatch(applyForSeller());
     toast("Apllied For Seller Successfully..! Please Relogin And Wait Until Admin Approves Your Request.");
-
-    dispatch(logout());
   };
 
   const history = useHistory();
