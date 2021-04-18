@@ -256,16 +256,16 @@ const AdminScreen = (props) => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-6 mb-4">
-                    <div className="card text-white bg-secondary shadow">
-                      <div className="card-body">
-                        <button className="btn btn-secondary" onClick={showAllOrders}>
-                          Show All Orders
-                        </button>
+                    {/* <div className="col-lg-6 mb-4">
+                      <div className="card text-white bg-secondary shadow">
+                        <div className="card-body">
+                          <button className="btn btn-secondary" onClick={showAllOrders}>
+                            Show All Orders
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
-                </div>
               </div>
             </div>
           </div>
